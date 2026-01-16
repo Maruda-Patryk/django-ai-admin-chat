@@ -16,7 +16,7 @@ Everything happens in real-time, directly in the Django admin panel, without the
 
 ## Demo
 
-<!-- Video demonstration will be placed here -->
+[![Demo Video](https://img.youtube.com/vi/pVXc1CEwYh4/maxresdefault.jpg)](https://youtu.be/pVXc1CEwYh4)
 
 ## Key Features
 
