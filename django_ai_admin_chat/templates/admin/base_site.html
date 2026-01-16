@@ -32,10 +32,6 @@
       padding: 12px;
       display: none;
     }
-    #admin-chat-panel h4 {
-      margin: 0 0 8px 0;
-      font-size: 14px;
-    }
     #admin-chat-messages {
       height: 220px;
       overflow-y: auto;
@@ -91,16 +87,28 @@
       margin-bottom: 8px;
     }
     #admin-chat-clear {
-      background: transparent;
-      border: none;
+      background: #f7f9fb;
+      border: 1px solid #e3e7ec;
+      border-radius: 4px;
       color: #5a6673;
       font-size: 12px;
       cursor: pointer;
-      padding: 0;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
     }
     #admin-chat-clear:hover {
+      background: #eef2f5;
+      border-color: #c7cdd4;
       color: #0c4b33;
-      text-decoration: underline;
+    }
+    #admin-chat-clear:active {
+      background: #e3e7ec;
+    }
+    #admin-chat-clear span:first-child {
+      font-size: 14px;
     }
     #admin-chat-input {
       flex: 1;
@@ -122,13 +130,15 @@
 {% block footer %}
   {{ block.super }}
   <div id="admin-chat-panel" aria-hidden="true">
-    <h4>Admin chat (placeholder)</h4>
     <div id="admin-chat-messages" aria-live="polite" aria-atomic="false"></div>
     <div id="admin-chat-actions">
-      <button id="admin-chat-clear" type="button">Clear</button>
+      <button id="admin-chat-clear" type="button" title="Clear chat history">
+        <span>🗑️</span>
+        <span>Clear</span>
+      </button>
     </div>
     <form id="admin-chat-form">
-      <input id="admin-chat-input" type="text" placeholder="Type a message..." />
+      <input id="admin-chat-input" type="text" placeholder="Type a message..." autocomplete="off" />
       <button id="admin-chat-send" type="submit">Send</button>
     </form>
   </div>
