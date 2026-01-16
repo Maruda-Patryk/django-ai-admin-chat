@@ -12,6 +12,14 @@ license = {text = "MIT"}
 authors = [
     {name = "Patryk Maruda"}
 ]
+keywords = [
+    "django",
+    "admin",
+    "ai",
+    "chat",
+    "langchain",
+    "openai",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
