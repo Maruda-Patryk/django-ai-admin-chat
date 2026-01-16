@@ -1,38 +1,58 @@
 # Django AI Admin Chat
 
-A Django app that adds AI-powered chat functionality to Django admin interface. The chat assistant can answer questions about your Django models and database using natural language queries.
+An intelligent AI assistant integrated into Django admin panel that allows you to ask questions about your database data in natural language and receive instant answers.
 
-## Features
+## How It Works
 
-- 🤖 **AI-powered chat interface** integrated into Django admin
-- 🔍 **Database search** using SQL database chain
-- 💾 **Chat history tracking** with session management
-- 📊 **Token usage monitoring** for cost tracking
-- 🎯 **Model filtering** - control which models are accessible to the AI
-- 📝 **SQL query logging** - see generated SQL queries when using SQLDatabaseChain
-- 🚀 **Streaming responses** via Server-Sent Events (SSE)
+Django AI Admin Chat is a plugin that adds an intelligent AI assistant to your Django admin panel. Instead of manually searching through tables and writing SQL queries, you can simply ask a question in natural language, and the assistant will:
+
+- **Analyze your question** and understand what you're looking for
+- **Automatically generate SQL queries** to your database
+- **Search for relevant data** in your Django models
+- **Formulate a readable answer** based on the found information
+- **Maintain conversation context**, allowing you to ask follow-up questions
+
+Everything happens in real-time, directly in the Django admin panel, without the need to switch between different tools.
+
+## Demo
+
+<!-- Video demonstration will be placed here -->
+
+## Key Features
+
+### 🤖 Intelligent AI Assistant
+The assistant uses advanced language models (only OpenAI GPT for now) to understand natural language questions and generate answers based on your database data.
+
+### 🔍 Automatic Database Search
+The system automatically analyzes your Django models structure, generates appropriate SQL queries, and searches for needed information without requiring manual code writing.
+
+### 💬 Chat Interface in Admin Panel
+A convenient chat panel available directly in Django admin - just click the chat icon in the bottom-right corner to start a conversation.
+
+### 📊 Conversation History
+All conversations are automatically saved, enabling:
+- Tracking questions and answers
+- System usage analysis
+- Cost control (token usage monitoring)
+- Reviewing generated SQL queries
+
+### 🎯 Data Access Control
+You can precisely control which Django models are available to the assistant, ensuring data security and privacy.
+
+### ⚡ Streaming Responses
+Responses are streamed in real-time, so you don't have to wait for the complete answer - you see results as they come.
 
 ## Installation
 
-### Development Installation
-
-To install the package in development mode (editable):
-
-```bash
-pip install -e .
-```
-
-### Production Installation
+### 1. Install the Package
 
 ```bash
 pip install django-ai-admin-chat
 ```
 
-## Configuration
+### 2. Add to INSTALLED_APPS
 
-### 1. Add to INSTALLED_APPS
-
-Add `django_ai_admin_chat` to your `INSTALLED_APPS` in Django settings:
+In your `settings.py` file, add:
 
 ```python
 INSTALLED_APPS = [
@@ -41,9 +61,9 @@ INSTALLED_APPS = [
 ]
 ```
 
-### 2. Include URLs
+### 3. Add URLs
 
-Include the app URLs in your main `urls.py`:
+In your main `urls.py` file:
 
 ```python
 from django.urls import include, path
@@ -54,82 +74,43 @@ urlpatterns = [
 ]
 ```
 
-### 3. Run Migrations
-
-Create and apply database migrations:
+### 4. Run Migrations
 
 ```bash
 python manage.py migrate
 ```
 
-### 4. AI Configuration
+### 5. Configure API Key
 
-Configure the admin chat integration in your Django settings:
+**Required:** Add your OpenAI API key to `settings.py`:
 
 ```python
-# Required: AI Provider Configuration
-DJANGO_AI_ADMIN_CHAT_PROVIDER = "openai"
 DJANGO_AI_ADMIN_CHAT_API_KEY = "your-openai-api-key"
-DJANGO_AI_ADMIN_CHAT_MODEL = "gpt-3.5-turbo"  # or "gpt-4", "gpt-4-turbo", etc.
-DJANGO_AI_ADMIN_CHAT_TEMPERATURE = 0.7
-DJANGO_AI_ADMIN_CHAT_MAX_TOKENS = 500
-
-# Search Configuration
-DJANGO_AI_ADMIN_CHAT_SEARCH_TYPE = "sql_database_chain"
-DJANGO_AI_ADMIN_CHAT_MAX_SEARCH_RESULTS = 10
-
-# Optional: Model Filtering
-DJANGO_AI_ADMIN_CHAT_ALLOWED_MODELS = []  # Empty list = all models allowed (except excluded)
-DJANGO_AI_ADMIN_CHAT_EXCLUDED_MODELS = []  # Models to exclude from search
 ```
 
-### Search Types
-
-The app uses a single search strategy:
-
-- **`sql_database_chain`** (default) - Uses LangChain SQLDatabaseChain to generate SQL queries and return database results directly in context. Best for complex queries and data analysis.
+That's it! After logging into the Django admin panel, you'll see the chat icon in the bottom-right corner.
 
 ## Usage
 
-### Admin Interface
+After installation and configuration, simply:
 
-Once configured, a chat button (💬) will appear in the bottom-right corner of your Django admin interface. Click it to open the chat panel and start asking questions about your data.
+1. Log in to your Django admin panel
+2. Click the chat icon (💬) in the bottom-right corner
+3. Start asking questions about your data!
 
-### Chat History
+**Example Questions:**
+- "How many users are in the system?"
+- "Show me the latest orders from the last week"
+- "Which product has the highest sales?"
+- "How many orders have 'pending' status?"
 
-All chat interactions are stored in the `ChatHistory` model, accessible via Django admin. Each entry includes:
-- User query and AI response
-- Search type used
-- Search results and context
-- Token usage (prompt, completion, total)
-- Generated SQL query (if using SQLDatabaseChain)
-- Session ID for conversation tracking
-
-## API Endpoints
-
-The app provides the following endpoints (all require staff member authentication):
-
-- `POST /admin-chat/echo/` - Send a message and get a complete response
-- `GET /admin-chat/history/` - Get chat history for current session
-- `GET|POST /admin-chat/stream/` - Stream chat response via Server-Sent Events
-- `POST /admin-chat/clear/` - Clear chat history and start a new session
+The assistant will understand your question, find the relevant data, and present it in a readable format.
 
 ## Requirements
 
 - Python >= 3.10
 - Django >= 4.2
-- langchain >= 0.1.0
-- langchain-community
-- langchain-experimental
-- langchain-openai >= 0.0.5
-- openai >= 1.0.0
-- SQLAlchemy
-
-See `pyproject.toml` for complete dependency list.
-
-## Development
-
-This package is currently in early development. Contributions are welcome!
+- OpenAI API Key
 
 ## License
 
