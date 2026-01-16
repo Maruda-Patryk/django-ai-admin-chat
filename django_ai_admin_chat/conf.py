@@ -48,6 +48,16 @@ def get_chat_settings() -> ChatSettings:
     )
 
 
+def get_database_config() -> dict | None:
+    """Return database config override for admin chat or None when not configured."""
+    value = _get_setting("DJANGO_AI_ADMIN_CHAT_DATABASE_CONFIG", None)
+    if not value:
+        return None
+    if not isinstance(value, dict):
+        raise ValueError("DJANGO_AI_ADMIN_CHAT_DATABASE_CONFIG must be a dict.")
+    return value
+
+
 def is_model_excluded(model_label: str, settings: ChatSettings) -> bool:
     """Check if a model is excluded based on settings.
 

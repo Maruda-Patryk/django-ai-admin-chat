@@ -12,7 +12,7 @@ from langchain_community.agent_toolkits import SQLDatabaseToolkit, create_sql_ag
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_openai import ChatOpenAI
 
-from .conf import ChatSettings, is_model_allowed
+from .conf import ChatSettings, get_database_config, is_model_allowed
 
 logger = logging.getLogger(__name__)
 
@@ -230,7 +230,7 @@ Current question: {query}"""
         return query
 
     def _build_database(self) -> SQLDatabase:
-        db_settings = django_settings.DATABASES.get("default", {})
+        db_settings = get_database_config() or django_settings.DATABASES.get("default", {})
         uri = self._build_sqlalchemy_uri(db_settings)
         include_tables = self._resolve_allowed_tables()
         return SQLDatabase.from_uri(uri, include_tables=include_tables)

@@ -80,6 +80,25 @@ urlpatterns = [
 python manage.py migrate
 ```
 
+### 4.1 Configure a Read-Only DB User (Recommended for Production)
+
+> **Production safety tip:** Create a dedicated read-only database user to prevent accidental data modifications.
+
+Example configuration:
+
+```python
+DJANGO_AI_ADMIN_CHAT_DATABASE_CONFIG = {
+    "ENGINE": "django.db.backends.postgresql",
+    "NAME": "my_database",
+    "USER": "readonly_user",
+    "PASSWORD": "readonly_password",
+    "HOST": "localhost",
+    "PORT": "5432",
+}
+```
+
+If `DJANGO_AI_ADMIN_CHAT_DATABASE_CONFIG` is not set, the system falls back to your default `DATABASES["default"]` configuration.
+
 ### 5. Configure API Key
 
 **Required:** Add your OpenAI API key to `settings.py`:
